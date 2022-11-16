@@ -1,0 +1,135 @@
+[
+    {
+        "matricola": 19211,
+        "numeroRegistro": 1,
+        "nome": "Mirco",
+        "cognome": "Arbetti",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 18907,
+        "numeroRegistro": 2,
+        "nome": "Sara",
+        "cognome": "Arlone",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 17716,
+        "numeroRegistro": 3,
+        "nome": "Nicole",
+        "cognome": "Bonafini",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 18549,
+        "numeroRegistro": 4,
+        "nome": "Alessandro",
+        "cognome": "Bonfante",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 18960,
+        "numeroRegistro": 5,
+        "nome": "Cristian",
+        "cognome": "Cernomaz",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 18982,
+        "numeroRegistro": 6,
+        "nome": "Greta",
+        "cognome": "Corazzoli",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 19004,
+        "numeroRegistro": 7,
+        "nome": "Davide",
+        "cognome": "Dalla Betta",
+        "level": "presidente"
+    },
+    {
+        "matricola": 19015,
+        "numeroRegistro": 8,
+        "nome": "Nicolae",
+        "cognome": "Donea",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 19023,
+        "numeroRegistro": 9,
+        "nome": "Pietro",
+        "cognome": "Fazion",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 18638,
+        "numeroRegistro": 10,
+        "nome": "Giovanni",
+        "cognome": "Frazza",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 19663,
+        "numeroRegistro": 11,
+        "nome": "Nicolo'",
+        "cognome": "Gianello",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 19254,
+        "numeroRegistro": 12,
+        "nome": "Roberto",
+        "cognome": "Gurau",
+        "level": "presidente"
+    },
+    {
+        "matricola": 19224,
+        "numeroRegistro": 13,
+        "nome": "Cristian Daniel",
+        "cognome": "Laios",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 19125,
+        "numeroRegistro": 14,
+        "nome": "Leonardo",
+        "cognome": "Milone",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 19097,
+        "numeroRegistro": 15,
+        "nome": "Francesco",
+        "cognome": "Roversi",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 19215,
+        "numeroRegistro": 16,
+        "nome": "Salvatore",
+        "cognome": "Russo",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 18767,
+        "numeroRegistro": 17,
+        "nome": "Luca",
+        "cognome": "Salzani",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 19192,
+        "numeroRegistro": 18,
+        "nome": "Francesco",
+        "cognome": "Vaona",
+        "level": "poveraccio"
+    },
+    {
+        "matricola": 19203,
+        "numeroRegistro": 19,
+        "nome": "Alessandro",
+        "cognome": "Zanon",
+        "level": "poveraccio"
+    }
+]
