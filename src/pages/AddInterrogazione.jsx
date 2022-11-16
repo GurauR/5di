@@ -5,14 +5,7 @@ import materie from "../data/materie.json"
 import Calendar from 'react-calendar';
 import { Link } from 'react-router-dom'
 
-const colourStyles = {
-  control: (styles) => ({ ...styles, backgroundColor: "#242424" }),
-  option: (styles) => ({ ...styles, backgroundColor: "#242424", color: "#FFFFFF", cursor: "pointer" }),
-  ":active": {
-    backgroundColor: "#FFFFFF"
-  }
-}
-
+import mongoose from 'mongoose';
 
 
 
@@ -52,38 +45,41 @@ export default class AddInterrogazione extends Component  {
     
     return (
       <>
-      <div>
-        <Select options={this.state.selectOptions} onChange={this.handleChange.bind(this)}
-          theme={(theme) => ({
-            ...theme,
-            borderRadius: 0,
-            colors: {
-              ...theme.colors,
-              primary25: '#343434',
-              primary: 'white',
-              neutral0: "#242424",
-              neutral80: 'white',
-            },
-          })}
-        />
+        <DaySelect />
+      </>
         
-          <p>{this.state.name} {this.state.id}</p>
-      </div>
-        <Example />
-        </>
     )
   }
   
 }
 
-const Example = () => {
+const DaySelect = () => {
   const [value, onChange] = useState(new Date());
 
   return (
     <div>
+      <Select options={this.state.selectOptions} onChange={this.handleChange.bind(this)}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: '#343434',
+                primary: 'white',
+                neutral0: "#242424",
+                neutral80: 'white',
+              },
+            })}
+          />
+
       <Calendar onChange={onChange} value={value} />
       <p>{value.toDateString()}</p>
+      <Link to="/5di/calendario" className='link' onClick={sendToServer(this.state.name, value.toDateString())}>Calendari Interrogazioni</Link>
     </div>
     
   );
 };
+
+function sendToServer(materia, date) {
+  const arrayOfData = {"materia":materia,"date":date}
+}
