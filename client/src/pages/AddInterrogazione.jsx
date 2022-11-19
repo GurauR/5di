@@ -4,9 +4,7 @@ import Select from 'react-select'
 import materie from "../data/materie.json"
 import Calendar from 'react-calendar';
 import { Link } from 'react-router-dom'
-
-import mongoose from 'mongoose';
-
+import axios from 'axios';
 
 
 export default class AddInterrogazione extends Component  {
@@ -41,7 +39,33 @@ export default class AddInterrogazione extends Component  {
       this.getOptions()
   }
 
+  state = {
+    id: 0,
+    materia: null,
+    data: null,
+    intervalIsSet: false,
+    idToDelete: null,
+    idToUpdate: null,
+    objectToUpdate: null,
+  };
+
+  putDataToDB = (materia, data) => {
+    let currentIds = this.state.data.map((data) => data.id);
+    let idToBeAdded = 0;
+    while (currentIds.includes(idToBeAdded)) {
+      ++idToBeAdded;
+    }
+
+    axios.post('http://localhost:3001/api/putData', {
+      id: idToBeAdded,
+      materia: materia,
+      data: data,
+    });
+  };
+
   render() {
+
+    const { data } = this.state;
     
     return (
       <>
@@ -72,14 +96,13 @@ const DaySelect = () => {
             })}
           />
 
-      <Calendar onChange={onChange} value={value} />
-      <p>{value.toDateString()}</p>
-      <Link to="/5di/calendario" className='link' onClick={sendToServer(this.state.name, value.toDateString())}>Calendari Interrogazioni</Link>
+      <Calendar onChange={(e) => this.setState({ materia: e.target.value })} value={value} />
+      <p>{materia.toDateString()}</p>
+      <Link to="/5di/calendario" className='link' onClick={() => this.putDataToDB(this.state.materia)}>Calendari Interrogazioni</Link>
     </div>
     
   );
 };
 
 function sendToServer(materia, date) {
-  const arrayOfData = {"materia":materia,"date":date}
 }

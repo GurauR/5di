@@ -5,12 +5,11 @@ import Calendario from './pages/Calendario'
 import HomePage from './pages/HomePage'
 import Materia from './pages/Materia'
 
-
-
 export default function App() { 
   return (
     <BrowserRouter>
-    <Routes>
+      <Routes>
+      <Route path='/' element={<Navigate to='5di'/>}/>
       <Route path='/5di/' element={<Navigate to='home'/>}/>
       <Route path='/5di/home' element={<HomePage/>}/>
       <Route path='/5di/calendario' element={<Calendario />} />

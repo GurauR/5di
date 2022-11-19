@@ -6,6 +6,7 @@ export default function HomePage() {
             <h1>Home Page</h1>
             <h2>
                 <Link to="/5di/calendario" className='link'>Calendari Interrogazioni</Link>
+                <Link to="/5di/add" className='link'>Add Interrogazioni</Link>
             </h2>
         </div>
     )
