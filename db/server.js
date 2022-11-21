@@ -1,87 +1,138 @@
-const mongoose = require('mongoose');
-const express = require('express');
-var cors = require('cors');
-const bodyParser = require('body-parser');
-const logger = require('morgan');
-const Data = require('./Interrogazioni');
+const express = require('express')
+const  mongoose = require('mongoose')
+const cors = require('cors')
+const app = express()
+const port = 3001
 
-const API_PORT = 3001;
-const app = express();
-app.use(cors());
-const router = express.Router();
+const InterrogazioniModel = require("./models/Interrogazioni")
+const UserModel = require("./models/Users")
 
-// this is our MongoDB database
-const dbRoute =
-  'mongodb://172.104.156.217:27017/?directConnection=true&appName=mongosh+1.6.0';
+var url = "mongodb://172.104.156.217:27017/?directConnection=true&appName=mongosh+1.6.0";
 
-// connects our back end code with the database
-mongoose.connect(dbRoute, { useNewUrlParser: true });
+app.use(cors())
+app.use(express.json())
 
-let db = mongoose.connection;
+mongoose.connect(url, { useNewUrlParser: true })
 
-db.once('open', () => console.log('connected to the database'));
+app.post('/insertInterrogazione', async (req, res) => {
 
-// checks if connection with the database is successful
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+  const materia = req.body.materia
+  const date = req.body.date
 
-// (optional) only made for logging and
-// bodyParser, parses the request body to be a readable json format
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(logger('dev'));
-
-// this is our get method
-// this method fetches all available data in our database
-router.get('/getData', (req, res) => {
-  Data.find((err, data) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: data });
-  });
-});
-
-// this is our update method
-// this method overwrites existing data in our database
-router.post('/updateData', (req, res) => {
-  const { id, update } = req.body;
-  Data.findByIdAndUpdate(id, update, (err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
-});
-
-// this is our delete method
-// this method removes existing data in our database
-router.delete('/deleteData', (req, res) => {
-  const { id } = req.body;
-  Data.findByIdAndRemove(id, (err) => {
-    if (err) return res.send(err);
-    return res.json({ success: true });
-  });
-});
-
-// this is our create methid
-// this method adds new data in our database
-router.post('/putData', (req, res) => {
-  let data = new Data();
-
-  const { id, message } = req.body;
-
-  if ((!id && id !== 0) || !message) {
-    return res.json({
-      success: false,
-      error: 'INVALID INPUTS',
-    });
+  const interrogazioni = new InterrogazioniModel({ materia: materia, date: date })
+  
+  try {
+    await interrogazioni.save()
+    res.send("inserted Data")
+  } catch (err) {
+    console.log(err)
   }
-  data.message = message;
-  data.id = id;
-  data.save((err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
-});
+})
 
-// append /api for our http requests
-app.use('/api', router);
+app.get('/readInterrogazione', async (req, res) => {
 
-// launch our backend into a port
-app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+  InterrogazioniModel.find({}, (err, result) => {
+    if (err) {
+      res.send(err)
+    }
+    
+    res.send(result)
+  })
+
+})
+
+app.post('/insertUser', async (req, res) => {
+
+  const matricola = req.body.matricola
+  const nome = req.body.nome
+  const cognome = req.body.cognome
+  const DIV = req.body.DIV
+  const GPI = req.body.GPI
+  const ING = req.body.ING
+  const INI = req.body.INI
+  const IRC = req.body.IRC
+  const LIT = req.body.LIT
+  const MAT = req.body.MAT
+  const SMS = req.body.SMS
+  const SRI = req.body.SRI
+  const STO = req.body.STO
+  const TPI = req.body.TPI
+
+  //const matricola = 19254
+  //const nome = "Roberto"
+  //const cognome = "Gurau"
+  //const DIV = true
+  //const GPI = true
+  //const ING = true
+  //const INI = true
+  //const IRC = true
+  //const LIT = true
+  //const MAT = true
+  //const SMS = true
+  //const SRI = true
+  //const STO = true
+  //const TPI = true
+
+  const users = new UserModel({ matricola: matricola, nome: nome, cognome: cognome, DIV: DIV, GPI: GPI, ING: ING, INI: INI, IRC: IRC, LIT: LIT, MAT: MAT, SMS: SMS, SRI: SRI, STO: STO, TPI: TPI })
+
+  try {
+    await users.save()
+    res.send("inserted Data")
+  } catch (err) {
+    console.log(err)
+  }
+
+})
+
+app.get('/readUser', async (req, res) => {
+
+  UserModel.find({}, (err, result) => {
+    if (err) {
+      res.send(err)
+    }
+    
+    res.send(result)
+  })
+
+})
+
+app.put('/updateUser', async (req, res) => { 
+
+  const id = req.body.id
+
+  const matricola = req.body.updatedUser.matricola
+  const nome = req.body.updatedUser.nome
+  const cognome = req.body.updatedUser.cognome
+  const newDIV = req.body.updatedUser.DIV
+  const newGPI = req.body.updatedUser.GPI
+  const newING = req.body.updatedUser.ING
+  const newINI = req.body.updatedUser.INI
+  const newIRC = req.body.updatedUser.IRC
+  const newLIT = req.body.updatedUser.LIT
+  const newMAT = req.body.updatedUser.MAT
+  const newSMS = req.body.updatedUser.SMS
+  const newSRI = req.body.updatedUser.SRI
+  const newSTO = req.body.updatedUser.STO
+  const newTPI = req.body.updatedUser.TPI
+
+  try {
+    console.log(id)
+    UserModel.findById(id, (user) => {
+      user.DIV = newDIV,
+      user.GPI = newGPI,
+      user.ING = newING,
+      user.INI = newINI,
+      user.IRC = newIRC,
+      user.LIT = newLIT,
+      user.MAT = newMAT,
+      user.SMS = newSMS,
+      user.SRI = newSRI,
+      user.STO = newSTO,
+      user.TPI = newTPI
+    })
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+app.listen(port, () => console.log(`Server running on port ${port}!`))

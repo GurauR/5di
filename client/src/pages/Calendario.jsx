@@ -1,23 +1,33 @@
 import calendario from '../data/calendario.json'
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import axios from 'axios';
 
 
 export default function Calendario() {
+
+  const [interrogazioni, setInterrogazioni] = useState([])
   
-  
-    return (
-        <div className='calendario'>
-            <h1>Calendario</h1>
-        {
-                
-                calendario
-                .sort((interrogazione1, interrogazione2) => interrogazione2.data - interrogazione1.data)
-                .map((interrogazione, index) => <h2 key={index}>
-                  <Link to="/5di/materia" state={{ materia: interrogazione.materia }} className='link'>{interrogazione.materia} {interrogazione.data}</Link>
-                </h2>)
-        }
-            
-        </div>
+  useEffect(() => {
+    axios.get(`http://localhost:3001/readInterrogazione`).then((response) => {
+      setInterrogazioni(response.data)
+      console.log(response.data)
+    })
+    
+  }, [])
+
+  return (
+    <div className='calendario'>
+        <h1>Calendario</h1>
+      {
+        interrogazioni.map((val, key) => {
+          return <h2 key={key}> 
+                  <Link to="/5di/materia" state={{ materia: val.materia }} className='link'>{val.materia} {val.date}</Link>
+                 </h2>
+        })
+      }
+        
+    </div>
   )
   
 }
